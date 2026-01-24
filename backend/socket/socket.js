@@ -7,7 +7,8 @@ let app = express()
 const server = http.createServer(app)
 const io = new Server(server,{
     cors:{
-        origin:"https://realtimechatapp-oj22.onrender.com"
+        origin:"https://realtimechatapp-oj22.onrender.com",
+        methods: ["GET", "POST"],
     }
 })
 const userSocketMap = {}
@@ -20,10 +21,9 @@ io.on("connection", (socket)=>{
     // emit -> send //
     // on -> receive //
     const userId=socket.handshake.query.userId
-    if(userId!=undefined){
-        userSocketMap[userId]=socket.id
-        // userId:socketid
-    }
+   if (userId) {
+  userSocketMap[userId] = socket.id; // overwrite safely
+}
     io.emit("getOnlineUsers",Object.keys(userSocketMap))
 
     socket.on("disconnect",()=>{
