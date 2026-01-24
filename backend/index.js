@@ -14,7 +14,7 @@ const port = process.env.PORT || 5000
 // creating the server
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://realtimechatapp-oj22.onrender.com",
   credentials: true,
 }))
 app.use(express.json())
